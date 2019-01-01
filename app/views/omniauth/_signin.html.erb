@@ -1,0 +1,18 @@
+<%= stylesheet_link_tag 'omniauth', plugin: 'redmine_omniauth_generic' %>
+
+<% if Setting.plugin_redmine_omniauth_generic['enabled'] %>
+  <%= content_tag :div, id: 'omniauth-form' do %>
+    <%= label_tag nil, l('omniauth.label.sign_in_via') %>
+    <% OmniAuth::Builder.providers.each do |k, v| %>
+      <%= link_to omniauth_signin_path(provider: k), class: 'btn' do %>
+        <%= image_tag omniauth_button_icon(k, v), plugin: 'redmine_omniauth_generic' %><%= content_tag :span do %><%= omniauth_button_text(k, v) %><% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>
+
+<% if !Setting.plugin_redmine_omniauth_generic['announcement'].blank? %>
+  <%= content_tag :div, id: 'omniauth-announcement' do %>
+    <%=raw Redmine::WikiFormatting.to_html(Setting.text_formatting, Setting.plugin_redmine_omniauth['announcement']) %>
+  <% end %>
+<% end %>

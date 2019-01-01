@@ -1,0 +1,12 @@
+<p>
+  <%= label_tag nil, l('omniauth.setting.enabled') %>
+  <%= check_box_tag 'settings[enabled]', true, @settings['enabled'] %>
+</p>
+<p>
+  <%= label_tag nil, l('omniauth.setting.auto_registration') %>
+  <%= check_box_tag 'settings[auto_registration]', true, @settings['auto_registration'] %>
+</p>
+<p>
+  <%= label_tag nil, l('omniauth.setting.announcement') %>
+  <%= text_area_tag "settings[announcement]", @settings['announcement'], :rows => 5 %>
+</p>

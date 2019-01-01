@@ -1,0 +1,12 @@
+en:
+  omniauth:
+    label:
+      sign_in_via: Sign in via
+    error:
+      authentication_failure: OmniAuth authentication failure
+      unknown_provider: OmniAuth unknown provider
+      disabled: OmniAuth authentication disabled
+    setting:
+      enabled: Enabled
+      auto_registration: Auto registration
+      announcement: Announcement
