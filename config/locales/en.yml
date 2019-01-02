@@ -4,6 +4,7 @@ en:
       sign_in_via: Sign in via
     error:
       authentication_failure: OmniAuth authentication failure
+      authorization_failure: OmniAuth authorization failure
       unknown_provider: OmniAuth unknown provider
       disabled: OmniAuth authentication disabled
     setting:

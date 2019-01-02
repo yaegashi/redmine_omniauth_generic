@@ -4,6 +4,7 @@ ja:
       sign_in_via: サインイン
     error:
       authentication_failure: OmniAuth 認証に失敗しました
+      authorization_failure: OmniAuth 承認に失敗しました
       unknown_provider: OmniAuth 不明なプロバイダです
       disabled: OmniAuth 認証が無効です
     setting:
