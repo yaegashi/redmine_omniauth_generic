@@ -13,6 +13,6 @@
 
 <% if !Setting.plugin_redmine_omniauth_generic['announcement'].blank? %>
   <%= content_tag :div, id: 'omniauth-announcement' do %>
-    <%=raw Redmine::WikiFormatting.to_html(Setting.text_formatting, Setting.plugin_redmine_omniauth['announcement']) %>
+    <%=raw Redmine::WikiFormatting.to_html(Setting.text_formatting, Setting.plugin_redmine_omniauth_generic['announcement']) %>
   <% end %>
 <% end %>
