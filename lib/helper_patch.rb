@@ -5,6 +5,8 @@ module OmniauthHelperPatch
     base.send(:include, InstanceMethods)
     base.class_eval do
       unloadable
+      alias_method :omniauth_button_icon, :def_omniauth_button_icon
+      alias_method :omniauth_button_text, :def_omniauth_button_text
     end
   end
 
@@ -19,13 +21,13 @@ module OmniauthHelperPatch
       azure_oauth2: 'Azure AD',
     }
 
-    def omniauth_button_icon(provider, args)
+    def def_omniauth_button_icon(provider, args)
       a = args[0] || {}
       b = a[:button] || {}
       b[:icon] || OMNIAUTH_BUTTON_ICONS[provider] || 'omniauth.png'
     end
 
-    def omniauth_button_text(provider, args)
+    def def_omniauth_button_text(provider, args)
       a = args[0] || {}
       b = a[:button] || {}
       b[:text] || OMNIAUTH_BUTTON_TEXTS[provider] || provider.to_s.humanize
