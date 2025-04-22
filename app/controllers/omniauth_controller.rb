@@ -53,18 +53,40 @@ class OmniauthController < AccountController
     account_pending
   end
 
-  def omniauth_authorize_azure_oauth2(provider)
+  def omniauth_authorize_microsoft_graph(provider)
     args = OmniAuth::Builder.providers[provider] || [{}]
     options = args[0]
     ag = options[:authorized_member_groups]
     return true unless ag
     ag = [ag] unless ag.is_a?(Array)
-    mg = request.env['omniauth.auth'].extra.member_groups || []
-    logger.info "OmniAuth member groups: #{mg.to_json}"
-    ag.each do |g|
-      return true if mg.include?(g)
+    begin
+      token = request.env['omniauth.auth'].credentials.token
+      conn = Faraday.new(url: 'https://graph.microsoft.com') do |f|
+        f.request :json
+        f.response :json, parser_options: {object_class: OpenStruct}
+        f.adapter Faraday.default_adapter
+      end
+      res = conn.post('/v1.0/me/getMemberObjects') do |req|
+        req.headers = headers.merge({
+          'Content-Type' => 'application/json',
+          'Authorization' => "Bearer #{token}",
+        })
+        req.body = {securityEnabledOnly: true}
+      end
+      if res.success?
+        member_groups = res.body.value
+        logger.info "OmniAuth member groups: #{member_groups.to_json}"
+        ag.each do |g|
+          return true if member_groups.include?(g)
+        end
+      else
+        logger.error "OmniAuth Microsoft Graph error: #{res.status} #{res.body}"
+        return false
+      end
+    rescue
+      logger.error "OmniAuth Microsoft Graph error: #{$!.message}"
+      return false
     end
-    return false
   end
 
   def settings

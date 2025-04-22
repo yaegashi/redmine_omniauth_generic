@@ -4,7 +4,7 @@
   <%= content_tag :div, id: 'omniauth-form' do %>
     <%= label_tag nil, l('omniauth.label.sign_in_via') %>
     <% OmniAuth::Builder.providers.each do |k, v| %>
-      <%= link_to omniauth_signin_path(provider: k), class: 'btn' do %>
+      <%= link_to omniauth_signin_path(provider: k), class: 'btn', method: :post do %>
         <%= image_tag omniauth_button_icon(k, v), plugin: 'redmine_omniauth_generic' %><%= content_tag :span do %><%= omniauth_button_text(k, v) %><% end %>
       <% end %>
     <% end %>

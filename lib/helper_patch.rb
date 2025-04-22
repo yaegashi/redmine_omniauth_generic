@@ -13,12 +13,12 @@ module OmniauthHelperPatch
   module InstanceMethods
     OMNIAUTH_BUTTON_ICONS = {
       developer: 'omniauth.png',
-      azure_oauth2: 'azure.png',
+      microsoft_graph: 'azure.png',
     }
 
     OMNIAUTH_BUTTON_TEXTS = {
       developer: 'Developer',
-      azure_oauth2: 'Azure AD',
+      microsoft_graph: 'Microsoft Graph',
     }
 
     def def_omniauth_button_icon(provider, args)
